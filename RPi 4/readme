@@ -1,0 +1,110 @@
+This repository contains drivers and test programs for the MQ-3 alcohol sensor, cooler chip, and fan on a Raspberry Pi 4. The drivers allow for reading data from the sensor and controlling the cooler chip and fan.
+
+Table of Contents
+Prerequisites
+Installation
+Usage
+Test Programs
+Configuration
+Troubleshooting
+License
+Prerequisites
+Raspberry Pi 4
+Linux kernel headers installed
+GCC compiler and Make utility
+I2C enabled on Raspberry Pi
+Git installed for cloning the repository
+Installation
+Clone the Repository
+bash
+複製程式碼
+`git clone https://github.com/yourusername/yourrepository.git`
+cd yourrepository
+Build the Drivers
+To compile all drivers (MQ-3, Cooler Chip, and Fan):
+
+bash
+複製程式碼
+make
+This will compile and create the kernel modules (mq3_driver.ko, coolerchip_driver.ko, fan_driver.ko).
+
+Install the Drivers
+To install the drivers:
+
+bash
+複製程式碼
+sudo insmod mq3_driver.ko
+sudo insmod coolerchip_driver.ko
+sudo insmod fan_driver.ko
+To verify the installation:
+
+bash
+複製程式碼
+lsmod | grep mq3_driver
+lsmod | grep coolerchip_driver
+lsmod | grep fan_driver
+Uninstall the Drivers
+To uninstall the drivers:
+
+bash
+複製程式碼
+sudo rmmod mq3_driver
+sudo rmmod coolerchip_driver
+sudo rmmod fan_driver
+Usage
+MQ-3 Driver
+Device Name: /dev/mq3_driver
+The MQ-3 driver reads alcohol concentration values via I2C from the ADS1115 ADC converter.
+Cooler Chip Driver
+Device Name: /dev/coolerchip_driver
+This driver controls the cooler chip, allowing it to be turned on or off.
+Fan Driver
+Device Name: /dev/fan_driver
+This driver controls the fan, allowing it to be turned on or off.
+Test Programs
+Building the Test Programs
+To compile the test programs for each device (fan and cooler chip):
+
+bash
+複製程式碼
+make fan_control coolerchip_control
+This will create executables named fan_control and coolerchip_control.
+
+Running Test Programs
+Fan Control:
+
+Run the fan control program to turn the fan on or off:
+
+bash
+複製程式碼
+./fan_control [on|off]
+Cooler Chip Control:
+
+Run the cooler chip control program to turn the cooler chip on or off:
+
+bash
+複製程式碼
+./coolerchip_control [on|off]
+MQ-3 Sensor Reading:
+
+To read alcohol concentration data:
+
+bash
+複製程式碼
+cat /dev/mq3_driver
+Configuration
+Ensure that the I2C bus is enabled on your Raspberry Pi. You can enable I2C through raspi-config.
+Make sure the device addresses (e.g., for ADS1115) match the configurations set in the driver code.
+Troubleshooting
+Driver Not Loading:
+
+Check dmesg logs for errors using dmesg | grep mq3_driver or corresponding driver names.
+Ensure that kernel headers are installed and match your current kernel version.
+I2C Communication Errors:
+
+Verify connections to the I2C bus and that the device addresses are correct.
+Ensure I2C is enabled on the Raspberry Pi.
+Permission Errors:
+
+Run driver installation commands with sudo.
+Ensure that the device nodes /dev/mq3_driver, /dev/coolerchip_driver, and /dev/fan_driver have the correct permissions.
