@@ -18,7 +18,7 @@ Installation
 Clone the Repository
 bash
 複製程式碼
-`git clone https://github.com/yourusername/yourrepository.git`
+```git clone https://github.com/yourusername/yourrepository.git```
 cd yourrepository
 Build the Drivers
 To compile all drivers (MQ-3, Cooler Chip, and Fan):
